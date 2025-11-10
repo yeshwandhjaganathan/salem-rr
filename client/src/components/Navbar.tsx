@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link, useLocation } from 'react-router-dom'; // ✅ updated import
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const location = useLocation(); // ✅ updated to react-router-dom
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +35,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" data-testid="link-home">
+          <Link to="/" data-testid="link-home">
             <div className="flex items-center gap-3 cursor-pointer">
               <div className="w-12 h-12 bg-chart-2 rounded-full flex items-center justify-center text-xl font-bold text-primary">
                 RR
@@ -48,18 +48,14 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                <a
+              <Link key={item.path} to={item.path} data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                <span
                   className={`text-white hover:text-chart-2 transition-colors duration-300 font-[Lexend_Deca] ${
-                    location === item.path ? 'text-chart-2 font-semibold' : ''
+                    location.pathname === item.path ? 'text-chart-2 font-semibold' : ''
                   }`}
                 >
                   {item.label}
-                </a>
+                </span>
               </Link>
             ))}
           </div>
@@ -80,19 +76,15 @@ export default function Navbar() {
         <div className="lg:hidden bg-primary border-t border-white/10">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {navItems.map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                data-testid={`link-mobile-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                <a
+              <Link key={item.path} to={item.path} data-testid={`link-mobile-${item.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                <span
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`block text-white hover:text-chart-2 transition-colors duration-300 font-[Lexend_Deca] py-2 ${
-                    location === item.path ? 'text-chart-2 font-semibold' : ''
+                    location.pathname === item.path ? 'text-chart-2 font-semibold' : ''
                   }`}
                 >
                   {item.label}
-                </a>
+                </span>
               </Link>
             ))}
           </div>

@@ -1,4 +1,5 @@
-import { Link } from 'wouter';
+// Footer.jsx
+import { Link } from 'react-router-dom'; // <-- changed to react-router-dom
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
 export default function Footer() {
@@ -33,13 +34,13 @@ export default function Footer() {
             <h3 className="font-bold text-lg mb-4 font-[Poppins]">Quick Links</h3>
             <div className="grid grid-cols-2 gap-2">
               {quickLinks.map((link) => (
-                <Link key={link.path} href={link.path}>
-                  <a
-                    className="text-white/80 hover:text-chart-2 transition-colors duration-300 font-[Roboto]"
-                    data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-                  >
-                    {link.label}
-                  </a>
+                <Link
+                  key={link.path}
+                  to={link.path}    // <-- react-router Link uses `to`
+                  className="text-white/80 hover:text-chart-2 transition-colors duration-300 font-[Roboto]"
+                  data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  {link.label}
                 </Link>
               ))}
             </div>
@@ -48,6 +49,7 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-4 font-[Poppins]">Follow Us</h3>
             <div className="flex gap-4">
+              {/* external links stay <a> */}
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -88,11 +90,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-6 text-center">
-          <p className="text-white/60 font-[Roboto]">
-            © {new Date().getFullYear()} Salem RR Biryani Unavagam. All rights reserved.
-          </p>
-        </div>
+       <div className="border-t border-white/10 pt-6 text-center">
+  <p className="text-white/60 font-[Roboto]">
+    © {new Date().getFullYear()} Salem RR Biryani Unavagam. All rights reserved.
+  </p>
+  <p className="text-white/60 font-[Roboto] mt-2">
+    Designed by{" "}
+    <a
+      href="https://yeshwandhjs-portfolio.netlify.app/"   // ✅ just keep this line clean
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-chart-2 hover:underline hover:text-white transition-colors duration-300 font-semibold"
+    >
+      YESHWANDH J S
+    </a>
+  </p>
+</div>
       </div>
     </footer>
   );
