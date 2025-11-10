@@ -65,14 +65,12 @@ const port = parseInt(process.env.PORT || '5000', 10);
 server.listen(
   {
     port,
-    host: "127.0.0.1",
-    // ❌ REMOVE: reusePort: true,
+    host: "0.0.0.0", // ✅ public access
   },
   () => {
-    console.log(`🚀 Server is running at http://127.0.0.1:${port}`);
+    console.log(`🚀 Server is running at http://0.0.0.0:${port}`);
   }
 );
-
 
 
 })();
